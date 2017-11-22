@@ -1,0 +1,12 @@
+[submodule "twitnotify"]
+	path = twitnotify
+	url = https://github.com/alphaKAI/twitnotify
+[submodule "streamFilter"]
+	path = streamFilter
+	url = https://github.com/alphaKAI/streamFilter
+[submodule "doco"]
+	path = doco
+	url = https://github.com/alphaKAI/doco
+[submodule "dww"]
+	path = dww
+	url = https://github.com/alphaKAI/dww
