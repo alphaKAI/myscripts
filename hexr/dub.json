@@ -1,0 +1,9 @@
+{
+	"name": "hexr",
+	"authors": [
+		"Akihiro Shoji"
+	],
+	"description": "tiny hexdump tool",
+	"copyright": "Copyright © 2018, Akihiro Shoji",
+	"license": "MIT"
+}
