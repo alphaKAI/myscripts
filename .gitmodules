@@ -10,3 +10,9 @@
 [submodule "dww"]
 	path = dww
 	url = https://github.com/alphaKAI/dww
+[submodule "ctwi"]
+	path = ctwi
+	url = https://github.com/alphaKAI/ctwi
+[submodule "ctl"]
+	path = ctl
+	url = https://github.com/alphaKAI/ctl
