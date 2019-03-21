@@ -13,11 +13,13 @@ void main() {
     "hexr" : build_dub,
     "streamFilter" : build_dub,
     "twitnotify" : build_dub,
-    "xxz" : build_dub];
+    "xxz" : build_dub,
+    "ctwi" : build_dub,
+    "ctl" : build_dub];
 
   auto base_dir = getcwd;
 
-  foreach (name; commands.keys.parallel) {
+  foreach (name; commands.keys) {
     string build_cmd = commands[name]; 
     writeln("[BUILD] ", name, " [CMD: ", build_cmd, "]");
     name.chdir;
