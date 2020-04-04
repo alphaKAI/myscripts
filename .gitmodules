@@ -1,6 +1,3 @@
-[submodule "twitnotify"]
-	path = twitnotify
-	url = https://github.com/alphaKAI/twitnotify
 [submodule "streamFilter"]
 	path = streamFilter
 	url = https://github.com/alphaKAI/streamFilter
@@ -16,3 +13,6 @@
 [submodule "ctl"]
 	path = ctl
 	url = https://github.com/alphaKAI/ctl
+[submodule "dbk"]
+	path = dbk
+	url = git@github.com:alphaKAI/dbk
