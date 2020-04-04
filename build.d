@@ -1,5 +1,5 @@
-import std.parallelism,
-       std.process,
+import std.process,
+       std.format,
        std.stdio,
        std.file;
 
@@ -18,14 +18,16 @@ void main() {
     "dbk" : build_dub,
   ];
 
-  auto base_dir = getcwd;
+  import core.thread;
+  auto tg = new ThreadGroup();
 
-  foreach (name; commands.keys.parallel) {
-    string build_cmd = commands[name]; 
-    writeln("[BUILD] ", name, " [CMD: ", build_cmd, "]");
-    name.chdir;
-    executeShell(build_cmd);
-    base_dir.chdir;
-    writeln("[BUILD] ", name, " [FINISHED]");
+  foreach (name; commands.keys) {
+    string build_cmd = "cd %s; %s".format(name, commands[name]);
+
+    tg.create(((string name, string build_cmd) => () {
+      writeln("[BUILD] ", name, " [CMD: ", build_cmd, "]");
+      executeShell(build_cmd);
+      writeln("[BUILD] ", name, " [FINISHED]");
+    })(name, build_cmd));
   }
 }
