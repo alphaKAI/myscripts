@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+DIR = ARGV[0]
+COMMANDS = ARGV[1..-1]
+
+Dir.chdir DIR do
+  cmd = COMMANDS.join(" ")
+  system cmd
+end
+

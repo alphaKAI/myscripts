@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+if 1 > ARGV.length
+  puts "Arguments required"
+  exit
+end
+
+base_name = ARGV[0]
+base_name = File.basename(base_name, ".cpp")
+
+cpp_name = "#{base_name}.cpp"
+
+unless File.exists? cpp_name
+  puts "Does not exist such a cpp file: #{cpp_name}."
+  exit
+end
+
+if system("clang++ -o #{base_name} #{cpp_name}")
+  if 1 < ARGV.length
+    ARGV[1..-1].each do |test_case|
+      unless File.exists? test_case
+        try_name = "#{base_name}_#{test_case}"
+        if File.exists? try_name
+          test_case = try_name
+        else
+          puts "Does not exist such a case: #{test_case} or #{try_name}"
+          exit
+        end
+      end
+
+      STDERR.puts "exec #{base_name} with #{test_case}"
+      puts `./#{base_name} < #{test_case}`
+      unless $?
+        puts "Error occurred with #{test_case}"
+      end
+    end
+  else
+    puts "exec #{base_name}"
+    system("./#{base_name}")
+  end
+end

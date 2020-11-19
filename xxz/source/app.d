@@ -5,7 +5,7 @@ import std.process,
        std.path;
 
 void xxz(string fileName) {
-  enum CPU_CORE = 4;
+  enum CPU_CORE = 8;
 
   writeln("Extract tar package " ~ fileName ~ " into " ~ baseName(fileName, ".xz"));
   executeShell("tar -xf " ~ fileName);

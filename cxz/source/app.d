@@ -5,7 +5,7 @@ import std.process,
 
 void cxz(string fileName) {
   enum CompressLevel = 9;
-  enum CPU_CORE      = 4;
+  enum CPU_CORE      = 8;
 
   writeln("Make tar package ", fileName ~ " into " ~ fileName ~ ".tar");
   executeShell("tar -cf " ~ fileName ~ ".tar " ~ fileName);
@@ -30,3 +30,4 @@ void main(string[] args) {
   }
 }
 
+ 

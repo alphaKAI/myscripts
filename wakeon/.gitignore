@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/wakeon
+wakeon.so
+wakeon.dylib
+wakeon.dll
+wakeon.a
+wakeon.lib
+wakeon-test-*
+*.exe
+*.o
+*.obj
+*.lst
