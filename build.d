@@ -16,7 +16,7 @@ void main() {
     "ctwi" : build_dub,
     "ctl" : build_dub,
     "dbk" : build_dub,
-    "sizer": build_dub
+    "sizer": build_dub,
   ];
 
   import core.thread;
