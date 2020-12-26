@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+source ~/.myscripts/bin/generic-compile-and-run
+
+generic_compile_and_run "clang" "" ".c" "-o" "./" $@
+

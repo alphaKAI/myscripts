@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+source ~/.myscripts/bin/generic-compile-and-run
+
+generic_compile_and_run "javac" "" ".java" "@DONT_SPECIFY_DIST_FILE" "java " $@

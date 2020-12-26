@@ -1,0 +1,98 @@
+#!/usr/bin/env zsh
+
+find_key_in_slice_result=-1
+function find_key_in_slice() {
+  find_key_in_slice_result=-1
+  local key=$1
+  local src_slice=(${@:2})
+  local find_key_in_slice_index=1
+
+  for elem in $src_slice; do
+    if [ $key = $elem ]; then
+      find_key_in_slice_result=$find_key_in_slice_index
+      return
+    fi
+    (( find_key_in_slice_index++ ))
+  done
+}
+
+function generic_compile_and_run() {
+  # Internal Arguments
+  local compiler=$1
+  local compiler_default_options=$2
+  local src_ext=$3
+  local dst_prefix=$4
+  local exec_prefix=$5
+  local count_of_interanl_arguments=$((5 + 2))
+
+  # Arguments for Compiler
+  local src_file=$6
+  local dst_file=${src_file%$src_ext}
+  local compile_only=false
+  local compiler_additional_options=${@:$count_of_interanl_arguments}
+
+  if [ -z $debug_generic_compile_and_run ]; then
+    local debug_generic_compile_and_run=false
+  fi
+
+  if [ $debug_generic_compile_and_run = true ]; then
+    echo "compiler=$compiler"
+    echo "compiler_default_options=$compiler_default_options"
+    echo "src_ext=$src_ext"
+    echo "exec_prefix=$exec_prefix"
+  fi
+
+  if [ $# -ge $count_of_interanl_arguments ]; then
+    if [ ${@:$count_of_interanl_arguments:1} = "--compile-only" ]; then
+      compile_only=true
+      (( count_of_interanl_arguments++ ))
+      compiler_additional_options=${@:$count_of_interanl_arguments}
+    fi
+  fi
+
+  if [ $debug_generic_compile_and_run = true ]; then
+    echo "src_file=$src_file"
+    echo "dst_file=$dst_file"
+    echo "compile_only=$compile_only"
+    echo "compiler_additional_options=$compiler_additional_options"
+  fi
+
+  if [ -z $src_file ]; then
+    echo "[compile-c] [Error] Missing required argument - src_file"
+    exit
+  fi
+
+  if [ ! -e $src_file ]; then
+    echo "[compile-c] [Error] There is no such a file : \"$src_file\""
+    exit
+  fi
+
+  if [ $compile_only = true ]; then
+    echo "[compile-c] compile completed successfully."
+    exit
+  fi
+
+  local dst="$dst_prefix $dst_file"
+
+  if [ "$dst_prefix" = "@DONT_SPECIFY_DIST_FILE" ]; then
+    dst=""
+  fi
+
+  local compile_command="$compiler $src_file $dst $cc_options $compiler_additional_options"
+  if [ $debug_generic_compile_and_run = true ]; then
+    echo "compile_command: $compile_command"
+  fi
+  eval $compile_command
+  local compiler_status=$?
+
+  if [ $compiler_status = 0 ]; then
+    local exec_command="${exec_prefix}${dst_file}"
+
+    if [ $debug_generic_compile_and_run = true ]; then
+      echo "exec_command: $exec_command"
+    fi
+
+    eval ${exec_prefix}${dst_file}
+  fi
+}
+
