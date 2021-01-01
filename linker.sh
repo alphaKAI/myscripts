@@ -16,5 +16,5 @@ cd bin
 for command_name in $COMMAND_LIST; do
   cmd="ln -s ~/.myscripts/$command_name/$command_name $command_name"
   echo "link with : $cmd"
-  eval cmd
+  eval $cmd
 done
